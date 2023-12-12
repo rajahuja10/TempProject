@@ -1,0 +1,20 @@
+#! /bin/bash
+
+set -ex
+
+cd $files
+
+cp nginx.conf /etc/nginx/
+
+mkdir -p /var/flaskapp
+cp -R web-service /var/flaskapp
+tar -C /var/flaskapp/web-service -xvf venv.tar
+chmod +x /var/flaskapp/web-service/start.sh
+chown -R www-data:www-data /var/flaskapp/web-service
+
+cp web-service.conf /etc/supervisor/conf.d/
+cp web-service.localhost /etc/nginx/sites-enabled/
+
+if [ -f /etc/nginx/sites-enabled/default ] ; then
+	rm /etc/nginx/sites-enabled/default
+fi

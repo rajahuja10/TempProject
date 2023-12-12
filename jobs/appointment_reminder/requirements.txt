@@ -1,0 +1,10 @@
+Flask
+requests
+python-dotenv
+# Flask-Mail
+Jinja2
+pytz
+notifications-python-client
+
+# TODO: Can this be an env variable? Or can it be relative?
+-e git+https://github.com/bcgov/queue-management.git@main#egg=queue_api&subdirectory=api

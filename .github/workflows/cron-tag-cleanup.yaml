@@ -1,0 +1,50 @@
+name: Cron Image Stream Tag Cleanup
+on:
+  schedule:
+    - cron: '30 20 * * 3'
+  workflow_dispatch:
+
+jobs:
+  qms-commits:
+    if: github.repository_owner == 'bcgov'
+    name: QMS Commits
+    uses: ./.github/workflows/reusable-tag-cleanup-commit.yaml
+    secrets:
+      namespace: ${{ secrets.LICENCE_PLATE_QMS }}-tools
+      openshift-api: ${{ secrets.OPENSHIFT_API }}
+      openshift-token: ${{ secrets.SA_PASSWORD_QMS_TOOLS }}
+    with:
+      number-to-keep: 3
+
+  theq-commits:
+    if: github.repository_owner == 'bcgov'
+    name: The Q Commits
+    uses: ./.github/workflows/reusable-tag-cleanup-commit.yaml
+    secrets:
+      namespace: ${{ secrets.LICENCE_PLATE_THEQ }}-tools
+      openshift-api: ${{ secrets.OPENSHIFT_API }}
+      openshift-token: ${{ secrets.SA_PASSWORD_THEQ_TOOLS }}
+    with:
+      number-to-keep: 3
+
+  qms-pull-requests:
+    if: github.repository_owner == 'bcgov'
+    name: QMS Pull Requests
+    uses: ./.github/workflows/reusable-tag-cleanup-pr.yaml
+    secrets:
+      namespace: ${{ secrets.LICENCE_PLATE_QMS }}-tools
+      openshift-api: ${{ secrets.OPENSHIFT_API }}
+      openshift-token: ${{ secrets.SA_PASSWORD_QMS_TOOLS }}
+    with:
+      days-to-keep: 7
+
+  theq-pull-requests:
+    if: github.repository_owner == 'bcgov'
+    name: The Q Pull Requests
+    uses: ./.github/workflows/reusable-tag-cleanup-pr.yaml
+    secrets:
+      namespace: ${{ secrets.LICENCE_PLATE_THEQ }}-tools
+      openshift-api: ${{ secrets.OPENSHIFT_API }}
+      openshift-token: ${{ secrets.SA_PASSWORD_THEQ_TOOLS }}
+    with:
+      days-to-keep: 7

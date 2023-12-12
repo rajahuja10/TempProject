@@ -1,0 +1,9 @@
+samba-common
+manpages
+manpages-dev
+man-db
+gdb
+plymouth
+libplymouth4
+libraspberrypi-doc
+perl-modules-5.28

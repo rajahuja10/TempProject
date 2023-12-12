@@ -1,0 +1,16 @@
+Hello {{ display_name }},
+
+{% if service_name is not none %}
+Service: {{ service_name }}
+
+{% endif %}
+Your appointment with Service BC {{ location }} on {{ formatted_date }} has been cancelled due to circumstances beyond our control. For further information please call {{ telephone }}.
+
+To rebook your appointment, please visit Service BC Book an Appointment and sign in.
+
+[Book an Appointment with Service BC]({{ url }})
+Thank you,
+
+Service BC {{ location }}
+{{ civic_address }}
+{{ telephone }}

@@ -1,0 +1,28 @@
+
+Hello {{ display_name }},
+
+{% if service_name is not none %}
+Service: {{ service_name }}
+
+{% endif %}
+Thank you for booking an appointment with Service BC.
+
+You have an appointment with Service BC {{ location }} on {{ formatted_date }} for a total of {{ duration }} minutes. We're looking forward to seeing you.
+
+{% if office_email_paragraph is not none %}
+{{ office_email_paragraph|safe }}
+
+{% endif %} {% if service_email_paragraph is not none %}
+{{ service_email_paragraph|safe }}
+
+{% endif %}
+If you have any further questions about required documentation, please call us at {{ telephone }}.
+
+To change or cancel your appointment, please visit Service BC Book an Appointment and sign in.
+
+[Change or Cancel my Appointment with Service BC]({{ url }})
+Thank you,
+
+Service BC {{ location }}
+{{ civic_address }}
+{{ telephone }}

@@ -1,0 +1,701 @@
+openapi: "3.0.0"
+info:
+  description: Room Bookings API and model definitions.
+  version: 1.0.0
+  title: Room Bookings
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: http://localhost:5000/api/v1
+tags:
+- name: Exams
+  description: Everything about exams
+- name: Bookings
+  description: Everything about bookings
+- name: Invigilators
+  description: Everything about invigilators
+- name: Rooms
+  description: Everything about rooms
+- name: Appointments
+  description: Everything about appointments
+- name: ExamTypes
+  description: Everything about exam types
+paths:
+  /exams:
+    get:
+      tags:
+      - Exams
+      summary: Get a list of all exams
+      operationId: getExams
+      responses:
+        '200':
+          description: An array of Exams
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Exam"
+    post:
+      tags:
+      - Exams
+      summary: Create a new exam
+      operationId: createExam
+      requestBody:
+        description: Exam to add to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Exam'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                example: "/exams/1"
+              description: The URL of the created resource
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Exam"
+  /exams/${id}:
+    get:
+      tags:
+      - Exams
+      summary: Get an exam by ID
+      operationId: getExamById
+      parameters:
+      - name: id
+        in: path
+        description: ID of exam to fetch
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The exam
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Exam"
+    put:
+      tags:
+      - Exams
+      summary: Update an exam by ID
+      operationId: updateExamById
+      parameters:
+      - name: id
+        in: path
+        description: ID of exam to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The exam having been updated
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Exam"
+    delete:
+      tags:
+      - Exams
+      summary: Get an exam by ID
+      operationId: deleteExamById
+      parameters:
+      - name: id
+        in: path
+        description: ID of exam to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No Content
+  /exams/export:
+    get:
+      tags:
+        - Exams
+      summary: Get a list of all exams in CSV form
+      operationId: getExamsExport
+      responses:
+        '200':
+          description: An array of Exams
+          content:
+            application/json:
+              schema:
+                type: csv
+                items:
+                  $ref: "#/components/schemas/Exam"
+  /exams_types:
+    get:
+      tags:
+        - ExamTypes
+      summary: Get a list of all exam types
+      operationId: getExamTypes
+      responses:
+        '200':
+          description: An array of Exam Types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExamType"
+  /bookings:
+    get:
+      tags:
+      - Bookings
+      summary: Get a list of all bookings
+      operationId: getBookings
+      responses:
+        '200':
+          description: An array of Bookings
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+    post:
+      tags:
+      - Bookings
+      summary: Create a new booking
+      operationId: createBooking
+      requestBody:
+        description: Booking to add to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                example: "/bookings/1"
+              description: The URL of the created resource
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+  /bookings/${id}:
+    get:
+      tags:
+      - Bookings
+      summary: Get an booking by ID
+      operationId: getBookingById
+      parameters:
+      - name: id
+        in: path
+        description: ID of booking to fetch
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The booking
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Booking"
+    put:
+      tags:
+      - Bookings
+      summary: Update an booking by ID
+      operationId: updateBookingById
+      parameters:
+      - name: id
+        in: path
+        description: ID of booking to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The booking having been updated
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Booking"
+    delete:
+      tags:
+      - Bookings
+      summary: Get an booking by ID
+      operationId: deleteBookingById
+      parameters:
+      - name: id
+        in: path
+        description: ID of booking to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No Content
+  /invigilators:
+    get:
+      tags:
+      - Invigilators
+      summary: Get a list of all invigilators
+      operationId: getInvigilators
+      responses:
+        '200':
+          description: An array of Invigilators
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invigilator"
+  /rooms:
+    get:
+      tags:
+      - Rooms
+      summary: Get a list of all rooms
+      operationId: getRooms
+      responses:
+        '200':
+          description: An array of Rooms
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Room"
+                
+  /appointments/:
+    get:
+      tags:
+        - Appointments
+      summary: Get a list of all appointments
+      operationId: getAppointments
+      responses:
+        '200':
+          description: An array of Appointments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Appointment"
+    post:
+      tags:
+        - Appointments
+      summary: Create a new appointment
+      operationId: createAppointment
+      requestBody:
+        description: Appointment to add to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                example: "/appointment/1/"
+              description: The URL of the created resource
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Appointment"
+  /appointment/${id}:
+    get:
+      tags:
+        - Appointments
+      summary: Get an appointment by ID
+      operationId: getAppointmentById
+      parameters:
+        - name: id
+          in: path
+          description: ID of appointment to fetch
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The appointment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+    put:
+      tags:
+        - Appointments
+      summary: Update an appointment by ID
+      operationId: updateAppointmentById
+      parameters:
+        - name: id
+          in: path
+          description: ID of appointment to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The appointment having been updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+    delete:
+      tags:
+        - Appointments
+      summary: Get an appointment by ID
+      operationId: deleteAppointmentById
+      parameters:
+        - name: id
+          in: path
+          description: ID of appointment to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    Booking:
+      type: object
+      properties:
+        booking_id:
+          type: integer
+          nullable: false
+          example: 1
+        room_id:
+          type: integer
+          nullable: true
+          example: 1
+        invigilator_id:
+          type: integer
+          nullable: true
+          example: 1
+        office_id:
+          type: integer
+          nullable: true
+          example: 1
+        start_time:
+          type: string
+          nullable: false
+          format: date-time
+        end_time:
+          type: string
+          nullable: false
+          format: date-time
+        fees:
+          type: string
+          nullable: true
+          example: false
+        booking_name:
+          type: string
+          nullable: true
+          example: Monthly Office Check In
+        sbc_staff_invigilated:
+          type: integer
+          nullable: false
+          example: 0
+        booking_contact_information:
+          type: string
+          nullable: true
+          example: "555-555-5555"
+        room:
+          readOnly: true
+          allOf:
+          - $ref: "#/components/schemas/Room"
+        invigilator:
+          allOf:
+            - $ref: "#/components/schemas/Invigilator"
+          readOnly: true
+        office:
+          allOf:
+          - $ref: "#/components/schemas/Office"
+    Exam:
+      type: object
+      properties:
+        exam_id:
+          type: integer
+          nullable: false
+          example: 1
+        booking_id:
+          type: integer
+          nullable: true
+          example: 1
+        exam_type_id:
+          type: integer
+          nullable: false
+          example: 1
+        office_id:
+          type: integer
+          nullable: false
+          example: 1
+        event_id:
+          type: string
+          nullable: false
+          example: 123456789
+        exam_name:
+          type: string
+          nullable: false
+        examinee_name:
+          nullable: true
+          type: string
+        expiry_date:
+          type: string
+          format: date-time
+          nullable: false
+        notes:
+          type: string
+          nullable: true
+          example: Helpful and specific notes about student/office
+        exam_received:
+          type: boolean
+          nullable: false
+          example: false
+        session_number:
+          type: integer
+          nullable: true
+          example: 1
+        number_of_students:
+          type: integer
+          nullable: true
+          example: 12
+        exam_method:
+          type: string
+          nullable: false
+          example: "Written"
+        deleted_date:
+          type: string
+          format: date-time
+          nullable: true
+        exam_received_date:
+          type: string
+          format: date-time
+          nullable: true
+        exams_returned_date:
+          type: datetime
+          nullable: true
+        exam_returned_tracking_number:
+          type: string
+          nullable: true
+        exam_written_ind:
+          type: integer
+          nullable: false
+          example: 0
+        offsite_location:
+          type: string
+          nullable: true
+        booking:
+          allOf:
+          - $ref: "#/components/schemas/Booking"
+          readOnly: true
+        exam_type:
+          allOf:
+          - $ref: "#/components/schemas/ExamType"
+          readOnly: true
+        office:
+          allOf:
+          - $ref: "#/components/schemas/Office"
+          readOnly: true
+    ExamType:
+      type: object
+      properties:
+        exam_type_id:
+          type: integer
+          nullable: false
+          example: 1
+        exam_type_name:
+          type: string
+          nullable: false
+          example: ITA Exam Type
+        exam_color:
+          type: string
+          nullable: false
+          example: red
+        number_of_hours:
+          type: int
+          nullable: false
+          example: 3
+        method_type:
+          type: string
+          nullable: false
+        ita_ind:
+          type: integer
+          nullable: false
+          example: 0
+        group_exam_ind:
+          type: number
+          nullable: false
+        exam:
+          allOf:
+          - $ref: "#/components/schemas/Exam"
+    Invigilator:
+      type: object
+      properties:
+        invigilator_id:
+          type: integer
+          nullable: false
+          example: 1
+        office_id:
+          type: integer
+          nullable: false
+          example: 1
+        invigilator_name:
+          type: string
+          nullable: false
+          example: Homer Simpson
+        invigilator_notes:
+          type: string
+          nullable: true
+        contact_phone:
+          type: string
+          nullable: true
+          format: phone
+        contact_email:
+          type: string
+          nullable: true
+          format: email
+        contract_number:
+          type: string
+          nullable: false
+          example: c-00001
+        contract_expiry_date:
+          type: string
+          nullable: false
+          format: date
+        office:
+          $ref: "#/components/schemas/Office"
+        exams:
+          $ref: "#/components/schemas/Exam"
+    Office:
+      type: object
+      properties:
+        office_id:
+          type: integer
+          example: 1
+          nullable: false
+        office_name:
+          type: string
+          example: Vernon
+          nullable: false
+        office_number:
+          type: integer
+          example: 1
+          nullable: false
+        sb_id:
+          type: integer
+          example: 1
+          nullable: false
+        deleted:
+          type: string
+          format: datetime
+          nullable: true
+        exams_enabled_ind:
+          type: integer
+          nullable: false
+          example: 0
+        appointments_enabled_ind:
+          type: integer
+          nullable: false
+          example: 0
+        timezone_id:
+          type: integer
+          nullable: false
+          example: 1
+        timezone:
+          allOf:
+            - $ref: "#/components/schemas/Timezone"
+    Room:
+      type: object
+      properties:
+        room_id:
+          type: integer
+          nullable: false
+          example: 1
+        office_id:
+          type: integer
+          nullable: false
+          example: 1
+        room_name:
+          type: string
+          nullable: false
+          example: "Boardroom 1"
+        capacity:
+          type: integer
+          nullable: false
+          example: 12
+        color:
+          type: string
+          nullable: false
+          example: red
+        office:
+          $ref: "#/components/schemas/Office"
+        booking:
+          $ref: "#/components/schemas/Booking"
+    Appointment:
+      type: object
+      properties:
+        appointment_id:
+          type: integer
+          nullable: false
+          example: 1
+        office_id:
+          type: integer
+          nullable: false
+          example: 1
+        start_time:
+          type: datetime
+          nullable: false
+          example: "2019-03-28 09:00:00"
+        end time:
+          type: datetime
+          nullable: false
+          example: "2019-03-28 09:15:00"
+        category:
+          type: string
+          nullable: false
+          example: "Exam"
+        checked_in_time:
+          type: datetime
+          nullable: false
+          example: "2019-03-28 09:03:00"
+        comments:
+          type: string
+          nullable: false
+          example: "Wants to set up written exam booking."
+    Timezone:
+      type: object
+      properties:
+        timezone_id:
+          type: integer
+          nullable: false
+          example: 1
+        timezone_name:
+          type: string
+          nullable: false
+          example: "America/Vancouver"
